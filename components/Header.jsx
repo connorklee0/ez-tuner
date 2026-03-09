@@ -18,7 +18,7 @@ const Header = () => {
         </div>
       </div>
       <p className="text-sm text-blue-100 font-medium mt-1 tracking-wide italic">
-        Start tuning any guitar right away!
+        Start tuning your 6-string right away!
       </p>
     </header>
   );
