@@ -1,9 +1,17 @@
 import DisplayWrapper from "@/components/Tuner Display/DisplayWrapper";
+import CollapsibleCard from "@/components/CollapsibleCard";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center">
-      <DisplayWrapper />
+    <div className="flex flex-col items-center justify-center">
+      <div className="flex gap-10">
+        <CollapsibleCard title={"Tunings"} subtitle={"Select a tuning"} />
+        <DisplayWrapper />
+        <CollapsibleCard
+          title={"Guitar Type"}
+          subtitle={"Select your guitar style"}
+        />
+      </div>
     </div>
   );
 }

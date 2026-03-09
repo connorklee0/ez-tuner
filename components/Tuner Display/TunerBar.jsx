@@ -27,8 +27,8 @@ const TunerBar = ({ cents = 0 }) => {
           <div
             className={`absolute top-0 bottom-0 transition-all duration-300 ${isInTune ? "opacity-60" : "opacity-25"}`}
             style={{
-              left: "calc(50% - 18px)",
-              width: "36px",
+              left: "calc(50% - 16px)",
+              width: "32px",
               background: "#22c55e",
             }}
           />
