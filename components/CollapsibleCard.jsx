@@ -8,7 +8,7 @@ const CollapsibleCard = ({ title, subtitle, children }) => {
 
   return (
     <div
-      className={`flex flex-col items-center border w-40 rounded-xl bg-white/15 px-2 transition-all duration-300 ease-in-out ${
+      className={`flex flex-col items-center border w-45 rounded-xl bg-white/15 px-2 transition-all duration-300 ease-in-out ${
         isOpen ? "h-120" : "h-28"
       }`}
     >

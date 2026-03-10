@@ -8,10 +8,10 @@ const TunerKnob = ({ label, isSelected, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={`w-5 h-5 rounded-md flex items-center justify-center text-xs font-bold transition-all duration-200 cursor-pointer
+      className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold transition-all duration-200 cursor-pointer
         ${
           isSelected
-            ? "bg-blue-400 border-blue-200 text-white shadow-sm shadow-blue-400/50 scale-110"
+            ? "bg-blue-600 border-blue-200 text-white shadow-sm shadow-blue-400/50 scale-110"
             : "bg-white/10 border-white/30 text-white/60 hover:bg-white/20 hover:border-white/50"
         }`}
     >
@@ -52,7 +52,7 @@ const AcousticHeadstock = ({ onStringSelect }) => {
       />
 
       {/* Left Tuner Knobs */}
-      <div className="absolute top-32 left-1 flex flex-col-reverse gap-3 z-10 -rotate-3 ">
+      <div className="absolute top-28 left-1 flex flex-col-reverse gap-3 z-10 -rotate-3 ">
         {leftStrings.map((string) => (
           <TunerKnob
             key={string.id}
@@ -64,7 +64,7 @@ const AcousticHeadstock = ({ onStringSelect }) => {
       </div>
 
       {/* Right Tuner Knobs */}
-      <div className="absolute top-32 right-2.5 flex flex-col gap-3 z-10 rotate-3">
+      <div className="absolute top-28 right-2.5 flex flex-col gap-3 z-10 rotate-3">
         {rightStrings.map((string) => (
           <TunerKnob
             key={string.id}
@@ -75,7 +75,7 @@ const AcousticHeadstock = ({ onStringSelect }) => {
         ))}
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full border py-2 px-4">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border py-2 px-4">
         3 + 3
       </div>
     </div>
