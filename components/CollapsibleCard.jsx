@@ -14,7 +14,7 @@ const CollapsibleCard = ({ title, subtitle, children }) => {
     >
       {/* Header */}
       <div className="flex flex-col items-center pt-3 shrink-0">
-        <span className="text-lg font-medium">{title}</span>
+        <span className="text-lg font-bold">{title}</span>
         <span className="text-xs text-gray-300">{subtitle}</span>
       </div>
 

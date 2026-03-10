@@ -14,6 +14,7 @@ const Header = () => {
             alt="EZ-Tuner logo"
             fill
             className="object-contain brightness-0 invert"
+            draggable={false}
           />
         </div>
       </div>
