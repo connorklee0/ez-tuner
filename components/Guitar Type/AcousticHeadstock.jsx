@@ -12,7 +12,7 @@ const TunerKnob = ({ label, isSelected, onClick }) => {
         ${
           isSelected
             ? "bg-blue-600 border-blue-200 text-white shadow-sm shadow-blue-400/50 scale-110"
-            : "bg-white/10 border-white/30 text-white/60 hover:bg-white/20 hover:border-white/50"
+            : "bg-white/10 border-white/30 text-white/60 hover:bg-white/20 hover:border-white/50 active:scale-90 hover:scale-110"
         }`}
     >
       {label}

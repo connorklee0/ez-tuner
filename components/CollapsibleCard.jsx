@@ -9,7 +9,7 @@ const CollapsibleCard = ({ title, subtitle, children }) => {
   return (
     <div
       className={`flex flex-col items-center border w-45 rounded-xl bg-white/15 px-2 transition-all duration-300 ease-in-out ${
-        isOpen ? "h-120" : "h-28"
+        isOpen ? "h-126" : "h-28"
       }`}
     >
       {/* Header */}
@@ -31,14 +31,14 @@ const CollapsibleCard = ({ title, subtitle, children }) => {
       <div className="shrink-0 py-2">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-center w-7 h-7 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 cursor-pointer transition-all duration-300 ease-in-out"
+          className="flex items-center justify-center w-5 h-6 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 cursor-pointer transition-all duration-300 ease-in-out active:scale-90 hover:scale-110"
         >
           <div
             className={`transition-transform duration-300 ease-in-out ${
               isOpen ? "rotate-0" : "rotate-180"
             }`}
           >
-            <ExpandLess sx={{ fontSize: 18 }} />
+            <ExpandLess sx={{ fontSize: 20 }} />
           </div>
         </button>
       </div>
