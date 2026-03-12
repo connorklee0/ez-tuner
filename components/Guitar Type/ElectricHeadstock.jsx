@@ -49,7 +49,7 @@ const ElectricHeadstock = ({ onStringSelect }) => {
       />
 
       {/* Tuner Knobs */}
-      <div className="absolute top-34 -left-16 flex gap-2 z-10 -rotate-74">
+      <div className="absolute top-37 -left-12.5 flex gap-1 z-10 -rotate-74">
         {STRINGS.map((string) => (
           <TunerKnob
             key={string.id}
