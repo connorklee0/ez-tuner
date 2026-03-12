@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import ElectricHeadstockSVG from "@/public/ElectricHeadstock.svg";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedString } from "@/store/stringSlice";
+import { TUNINGS } from "@/constants/tunings";
 
 const TunerKnob = ({ label, isSelected, onClick }) => {
   return (
@@ -21,21 +23,25 @@ const TunerKnob = ({ label, isSelected, onClick }) => {
 };
 
 const STRINGS = [
-  { id: 0, label: "6" },
-  { id: 1, label: "5" },
-  { id: 2, label: "4" },
-  { id: 3, label: "3" },
-  { id: 4, label: "2" },
-  { id: 5, label: "1" },
+  { id: 0, stringNum: "6" },
+  { id: 1, stringNum: "5" },
+  { id: 2, stringNum: "4" },
+  { id: 3, stringNum: "3" },
+  { id: 4, stringNum: "2" },
+  { id: 5, stringNum: "1" },
 ];
 
-const ElectricHeadstock = ({ onStringSelect }) => {
-  const [selectedString, setSelectedString] = useState(null);
+const ElectricHeadstock = () => {
+  const dispatch = useDispatch();
+  const selectedKey = useSelector((state) => state.tuning.selectedKey);
+  const selectedStringNum = useSelector(
+    (state) => state.string.selectedStringNum,
+  );
+  const tuning = TUNINGS[selectedKey] ?? TUNINGS.standard;
 
-  const handleSelect = (id) => {
-    const next = selectedString === id ? null : id;
-    setSelectedString(next);
-    onStringSelect?.(next);
+  const handleSelect = (stringNum) => {
+    const note = tuning.strings[stringNum];
+    dispatch(setSelectedString({ stringNum, note }));
   };
 
   return (
@@ -48,19 +54,18 @@ const ElectricHeadstock = ({ onStringSelect }) => {
         draggable={false}
       />
 
-      {/* Tuner Knobs */}
-      <div className="absolute top-37 -left-12.5 flex gap-1 z-10 -rotate-74">
+      <div className="absolute top-40 -left-12.5 flex gap-1 z-10 -rotate-75">
         {STRINGS.map((string) => (
           <TunerKnob
             key={string.id}
-            label={string.label}
-            isSelected={selectedString === string.id}
-            onClick={() => handleSelect(string.id)}
+            label={string.stringNum}
+            isSelected={selectedStringNum === string.stringNum}
+            onClick={() => handleSelect(string.stringNum)}
           />
         ))}
       </div>
 
-      <div className="absolute bottom-6 left-15 -translate-x-1/2 rounded-full border py-2 px-4 whitespace-nowrap">
+      <div className="absolute bottom-10 left-15 -translate-x-1/2 rounded-full border py-2 px-4 whitespace-nowrap">
         6-in-line
       </div>
     </div>

@@ -4,29 +4,40 @@ import CollapsibleCard from "@/components/CollapsibleCard";
 import ElectricHeadstock from "@/components/Guitar Type/ElectricHeadstock";
 import AcousticHeadstock from "@/components/Guitar Type/AcousticHeadstock";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setGuitarStyle, setGuitarCardOpen } from "@/store/guitarSlice";
 
-const TYPES = ["acoustic", "electric"];
+const TYPES = ["3 + 3", "6-in-line"];
 
 const GuitarCard = () => {
-  const [index, setIndex] = useState(0);
+  const dispatch = useDispatch();
+  const selectedStyle = useSelector((state) => state.guitar.selectedStyle);
+  const index = TYPES.indexOf(selectedStyle);
+  const isGuitarCardOpen = useSelector(
+    (state) => state.guitar.isGuitarCardOpen,
+  );
 
-  const prev = () => setIndex((i) => (i - 1 + TYPES.length) % TYPES.length);
-  const next = () => setIndex((i) => (i + 1) % TYPES.length);
+  const prev = () =>
+    dispatch(setGuitarStyle(TYPES[(index - 1 + TYPES.length) % TYPES.length]));
+  const next = () =>
+    dispatch(setGuitarStyle(TYPES[(index + 1) % TYPES.length]));
 
   return (
-    <CollapsibleCard title="Guitar Type" subtitle="Select your guitar style">
+    <CollapsibleCard
+      title="Guitar Type"
+      subtitle="Select your guitar style"
+      isOpen={isGuitarCardOpen}
+      onToggle={() => dispatch(setGuitarCardOpen(!isGuitarCardOpen))}
+    >
       <div className="relative w-full h-full flex flex-col">
-        {/* Headstock display */}
         <div className="relative w-full flex-1">
-          {TYPES[index] === "acoustic" ? (
+          {selectedStyle === "3 + 3" ? (
             <AcousticHeadstock />
           ) : (
             <ElectricHeadstock />
           )}
         </div>
 
-        {/* Controls */}
         <div className="flex items-center justify-between px-2 pb-1 relative bottom-10">
           <button
             onClick={prev}
@@ -35,12 +46,11 @@ const GuitarCard = () => {
             <ArrowBack sx={{ fontSize: 14 }} />
           </button>
 
-          {/* Dot indicators */}
           <div className="flex gap-1.5">
-            {TYPES.map((_, i) => (
+            {TYPES.map((type, i) => (
               <button
                 key={i}
-                onClick={() => setIndex(i)}
+                onClick={() => dispatch(setGuitarStyle(TYPES[i]))}
                 className={`w-1.5 h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                   i === index ? "bg-white scale-125" : "bg-white/30"
                 }`}

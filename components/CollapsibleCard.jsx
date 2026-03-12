@@ -1,11 +1,6 @@
-"use client";
-
-import { useState } from "react";
 import { ExpandLess } from "@mui/icons-material";
 
-const CollapsibleCard = ({ title, subtitle, children }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
+const CollapsibleCard = ({ title, subtitle, children, isOpen, onToggle }) => {
   return (
     <div
       className={`flex flex-col items-center border w-45 rounded-xl bg-white/15 px-2 transition-all duration-300 ease-in-out ${
@@ -30,7 +25,7 @@ const CollapsibleCard = ({ title, subtitle, children }) => {
       {/* Toggle button */}
       <div className="shrink-0 py-2">
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={onToggle}
           className="flex items-center justify-center w-5 h-6 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 cursor-pointer transition-all duration-300 ease-in-out active:scale-90 hover:scale-110"
         >
           <div

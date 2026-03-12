@@ -5,13 +5,22 @@ import Tuning from "./Tuning";
 import { TUNINGS } from "@/constants/tunings";
 import { useDispatch, useSelector } from "react-redux";
 import { setTuning } from "@/store/tuningSlice";
+import { setTuningCardOpen } from "@/store/guitarSlice";
 
 const TuningsCard = () => {
   const dispatch = useDispatch();
   const selectedKey = useSelector((state) => state.tuning.selectedKey);
+  const isTuningCardOpen = useSelector(
+    (state) => state.guitar.isTuningCardOpen,
+  );
 
   return (
-    <CollapsibleCard title={"Tunings"} subtitle={"Select a tuning"}>
+    <CollapsibleCard
+      title={"Tuning"}
+      subtitle={"Select a tuning"}
+      isOpen={isTuningCardOpen}
+      onToggle={() => dispatch(setTuningCardOpen(!isTuningCardOpen))}
+    >
       <div className="flex flex-col gap-2 py-2 overflow-y-auto no-scrollbar overflow-x-hidden h-full">
         {Object.entries(TUNINGS).map(([key, tuning]) => (
           <Tuning

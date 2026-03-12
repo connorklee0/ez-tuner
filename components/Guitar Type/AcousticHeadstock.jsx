@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import AcousticHeadstockSVG from "@/public/AcousticHeadstock.svg";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedString } from "@/store/stringSlice";
+import { TUNINGS } from "@/constants/tunings";
 
 const TunerKnob = ({ label, isSelected, onClick }) => {
   return (
@@ -21,21 +23,25 @@ const TunerKnob = ({ label, isSelected, onClick }) => {
 };
 
 const STRINGS = [
-  { id: 0, label: "6" },
-  { id: 1, label: "5" },
-  { id: 2, label: "4" },
-  { id: 3, label: "3" },
-  { id: 4, label: "2" },
-  { id: 5, label: "1" },
+  { id: 0, stringNum: "6" },
+  { id: 1, stringNum: "5" },
+  { id: 2, stringNum: "4" },
+  { id: 3, stringNum: "3" },
+  { id: 4, stringNum: "2" },
+  { id: 5, stringNum: "1" },
 ];
 
-const AcousticHeadstock = ({ onStringSelect }) => {
-  const [selectedString, setSelectedString] = useState(null);
+const AcousticHeadstock = () => {
+  const dispatch = useDispatch();
+  const selectedKey = useSelector((state) => state.tuning.selectedKey);
+  const selectedStringNum = useSelector(
+    (state) => state.string.selectedStringNum,
+  );
+  const tuning = TUNINGS[selectedKey] ?? TUNINGS.standard;
 
-  const handleSelect = (id) => {
-    const next = selectedString === id ? null : id;
-    setSelectedString(next);
-    onStringSelect?.(next);
+  const handleSelect = (stringNum) => {
+    const note = tuning.strings[stringNum];
+    dispatch(setSelectedString({ stringNum, note }));
   };
 
   const leftStrings = STRINGS.slice(0, 3);
@@ -46,36 +52,34 @@ const AcousticHeadstock = ({ onStringSelect }) => {
       <Image
         src={AcousticHeadstockSVG}
         fill
-        alt="Electric Guitar Headstock"
+        alt="Acoustic Guitar Headstock"
         className="object-contain invert"
         draggable={false}
       />
 
-      {/* Left Tuner Knobs */}
-      <div className="absolute top-28 left-1 flex flex-col-reverse gap-3 z-10 -rotate-3 ">
+      <div className="absolute top-32 left-1 flex flex-col-reverse gap-3 z-10 -rotate-3">
         {leftStrings.map((string) => (
           <TunerKnob
             key={string.id}
-            label={string.label}
-            isSelected={selectedString === string.id}
-            onClick={() => handleSelect(string.id)}
+            label={string.stringNum}
+            isSelected={selectedStringNum === string.stringNum}
+            onClick={() => handleSelect(string.stringNum)}
           />
         ))}
       </div>
 
-      {/* Right Tuner Knobs */}
-      <div className="absolute top-28 right-2.5 flex flex-col gap-3 z-10 rotate-3">
+      <div className="absolute top-32 right-2.5 flex flex-col gap-3 z-10 rotate-3">
         {rightStrings.map((string) => (
           <TunerKnob
             key={string.id}
-            label={string.label}
-            isSelected={selectedString === string.id}
-            onClick={() => handleSelect(string.id)}
+            label={string.stringNum}
+            isSelected={selectedStringNum === string.stringNum}
+            onClick={() => handleSelect(string.stringNum)}
           />
         ))}
       </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border py-2 px-4">
+      <div className="absolute bottom-10 left-20 -translate-x-1/2 rounded-full border py-2 px-4">
         3 + 3
       </div>
     </div>
