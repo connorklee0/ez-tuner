@@ -3,10 +3,12 @@
 import CollapsibleCard from "@/components/CollapsibleCard";
 import Tuning from "./Tuning";
 import { TUNINGS } from "@/constants/tunings";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setTuning } from "@/store/tuningSlice";
 
 const TuningsCard = () => {
-  const [selectedTuning, setSelectedTuning] = useState(null);
+  const dispatch = useDispatch();
+  const selectedKey = useSelector((state) => state.tuning.selectedKey);
 
   return (
     <CollapsibleCard title={"Tunings"} subtitle={"Select a tuning"}>
@@ -16,10 +18,8 @@ const TuningsCard = () => {
             key={key}
             label={tuning.label}
             strings={tuning.strings}
-            isSelected={selectedTuning === key}
-            onClick={() =>
-              setSelectedTuning(selectedTuning === key ? null : key)
-            }
+            isSelected={selectedKey === key}
+            onClick={() => dispatch(setTuning(key))}
           />
         ))}
       </div>

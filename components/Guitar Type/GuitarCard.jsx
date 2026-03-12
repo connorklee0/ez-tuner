@@ -50,7 +50,7 @@ const GuitarCard = () => {
 
           <button
             onClick={next}
-            className="flex items-center justify-center w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 transition-colors cursor-pointer"
+            className="flex items-center justify-center w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 transition-colors cursor-pointer active:scale-90 hover:scale-110"
           >
             <ArrowForward sx={{ fontSize: 14 }} />
           </button>

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Header = () => {
   return (
-    <header className="w-full flex flex-col items-center justify-center py-8 px-6 text-center">
+    <header className="w-full flex flex-col items-center justify-center py-6 px-6 text-center">
       <div className="flex items-center justify-center gap-3">
         <h1 className="text-4xl font-bold text-white tracking-tight">
           EZ-Tuner
