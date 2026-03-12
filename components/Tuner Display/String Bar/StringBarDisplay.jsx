@@ -5,7 +5,7 @@ import { TUNINGS } from "@/constants/tunings";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedString } from "@/store/stringSlice";
 
-const StringBarDisplayWrapper = () => {
+const StringBarDisplay = () => {
   const dispatch = useDispatch();
   const selectedKey = useSelector((state) => state.tuning.selectedKey);
   const selectedStringNum = useSelector(
@@ -23,10 +23,14 @@ const StringBarDisplayWrapper = () => {
   };
 
   return (
-    <div className="flex flex-col items-center py-2 px-6 gap-2 border w-180 h-45 rounded-xl bg-white/15">
-      <div className="text-lg">
-        Tuning: <span className="font-bold">{tuning.label}</span>, Guitar Type:{" "}
-        <span className="font-bold">{selectedStyle}</span>
+    <div className="flex flex-col items-center py-2 px-6 gap-5 w-full h-full">
+      <div className="text-xl flex flex-col items-center">
+        <span>
+          Tuning: <span className="font-bold">{tuning.label}</span>
+        </span>
+        <span>
+          Guitar Type: <span className="font-bold">{selectedStyle}</span>
+        </span>
       </div>
       <div className="text-sm">Select a string to tune</div>
       <div className="flex justify-evenly w-full gap-4">
@@ -46,4 +50,4 @@ const StringBarDisplayWrapper = () => {
   );
 };
 
-export default StringBarDisplayWrapper;
+export default StringBarDisplay;

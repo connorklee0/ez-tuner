@@ -4,7 +4,7 @@ const CollapsibleCard = ({ title, subtitle, children, isOpen, onToggle }) => {
   return (
     <div
       className={`flex flex-col items-center border w-45 rounded-xl bg-white/15 px-2 transition-all duration-300 ease-in-out ${
-        isOpen ? "h-131" : "h-25"
+        isOpen ? "max-h-120" : "h-25"
       }`}
     >
       {/* Header */}

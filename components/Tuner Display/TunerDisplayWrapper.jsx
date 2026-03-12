@@ -1,21 +1,13 @@
 "use client";
 
-import StringDisplay from "./StringDisplay";
-import NoteDisplay from "./NoteDisplay";
 import TunerBar from "./TunerBar";
-import { useSelector } from "react-redux";
+import StringBarDisplay from "./String Bar/StringBarDisplay";
 
 const TunerDisplayWrapper = () => {
-  const { selectedStringNum, selectedNote } = useSelector(
-    (state) => state.string,
-  );
-
   return (
-    <div className="flex flex-col items-center justify-between py-12 border w-180 h-80 rounded-xl bg-white/15">
-      <div className="flex flex-col items-center gap-2">
-        <StringDisplay string={selectedStringNum} />
-        <NoteDisplay note={selectedNote} />
-      </div>
+    <div className="flex flex-col items-center justify-between py-4 border w-180 h-120 rounded-xl bg-white/15">
+      <StringBarDisplay />
+      Play the selected string on your guitar to start tuning
       <TunerBar />
     </div>
   );

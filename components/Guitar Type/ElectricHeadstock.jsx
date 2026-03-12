@@ -45,28 +45,34 @@ const ElectricHeadstock = () => {
   };
 
   return (
-    <div className="relative w-full h-full left-3 bottom-8">
-      <Image
-        src={ElectricHeadstockSVG}
-        fill
-        alt="Electric Guitar Headstock"
-        className="object-contain invert"
-        draggable={false}
-      />
+    <div className="flex flex-col items-center justify-center w-full h-full gap-2">
+      <div className="relative w-36 h-95 left-2 bottom-4">
+        {/* SVG */}
+        <Image
+          src={ElectricHeadstockSVG}
+          fill
+          alt="Electric Guitar Headstock"
+          className="object-contain invert scale-115"
+          draggable={false}
+        />
+        {/* Knobs — positioned relative to the container */}
+        <div
+          className="absolute flex gap-1 z-10 -rotate-75"
+          style={{ top: "40%", left: "-42%" }}
+        >
+          {STRINGS.map((string) => (
+            <TunerKnob
+              key={string.id}
+              label={string.stringNum}
+              isSelected={selectedStringNum === string.stringNum}
+              onClick={() => handleSelect(string.stringNum)}
+            />
+          ))}
+        </div>
 
-      <div className="absolute top-40 -left-12.5 flex gap-1 z-10 -rotate-75">
-        {STRINGS.map((string) => (
-          <TunerKnob
-            key={string.id}
-            label={string.stringNum}
-            isSelected={selectedStringNum === string.stringNum}
-            onClick={() => handleSelect(string.stringNum)}
-          />
-        ))}
-      </div>
-
-      <div className="absolute bottom-10 left-15 -translate-x-1/2 rounded-full border py-2 px-4 whitespace-nowrap">
-        6-in-line
+        <div className="absolute bottom-10 left-15 -translate-x-1/2 rounded-full border py-1.5 px-4 text-sm whitespace-nowrap">
+          6-in-line
+        </div>
       </div>
     </div>
   );
