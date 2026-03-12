@@ -1,11 +1,8 @@
-"use client";
-
-import { Provider } from "react-redux";
-import { store } from "@/store/store";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Providers from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,10 +14,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// export const metadata: Metadata = {
-//   title: "EZ-Tuner",
-//   description: "Web-based guitar tuner",
-// };
+export const metadata: Metadata = {
+  title: "EZ-Tuner",
+  description: "Web-based guitar tuner",
+};
 
 export default function RootLayout({
   children,
@@ -33,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
-        <Provider store={store}>{children}</Provider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
