@@ -10,11 +10,13 @@ const Tuning = ({ label, strings, isSelected, onClick }) => {
     >
       <div className="capitalize text-sm font-bold">{label}</div>
       <div className="flex text-sm gap-2">
-        {Object.entries(strings).map(([num, note]) => (
-          <div key={num} className="flex flex-col items-center">
-            <span>{note}</span>
-          </div>
-        ))}
+        {Object.entries(strings)
+          .sort(([a], [b]) => b - a)
+          .map(([num, note]) => (
+            <div key={num} className="flex flex-col items-center">
+              <span>{note}</span>
+            </div>
+          ))}
       </div>
     </div>
   );

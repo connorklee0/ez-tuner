@@ -22,15 +22,16 @@ const TuningsCard = () => {
       onToggle={() => dispatch(setTuningCardOpen(!isTuningCardOpen))}
     >
       <div className="flex flex-col gap-2 py-2 overflow-y-auto no-scrollbar overflow-x-hidden h-full">
-        {Object.entries(TUNINGS).map(([key, tuning]) => (
-          <Tuning
-            key={key}
-            label={tuning.label}
-            strings={tuning.strings}
-            isSelected={selectedKey === key}
-            onClick={() => dispatch(setTuning(key))}
-          />
-        ))}
+        {Object.entries(TUNINGS)
+          .map(([key, tuning]) => (
+            <Tuning
+              key={key}
+              label={tuning.label}
+              strings={tuning.strings}
+              isSelected={selectedKey === key}
+              onClick={() => dispatch(setTuning(key))}
+            />
+          ))}
       </div>
     </CollapsibleCard>
   );

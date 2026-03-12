@@ -30,15 +30,17 @@ const StringBarDisplayWrapper = () => {
       </div>
       <div className="text-sm">Select a string to tune</div>
       <div className="flex justify-evenly w-full gap-4">
-        {Object.entries(tuning.strings).map(([num, note]) => (
-          <StringCard
-            key={num}
-            stringNum={num}
-            note={note}
-            isSelected={selectedStringNum === num}
-            onClick={() => handleStringSelect(num, note)}
-          />
-        ))}
+        {Object.entries(tuning.strings)
+          .sort(([a], [b]) => b - a)
+          .map(([num, note]) => (
+            <StringCard
+              key={num}
+              stringNum={num}
+              note={note}
+              isSelected={selectedStringNum === num}
+              onClick={() => handleStringSelect(num, note)}
+            />
+          ))}
       </div>
     </div>
   );
