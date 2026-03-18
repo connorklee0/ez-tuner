@@ -22,8 +22,6 @@ const TunerDisplayWrapper = () => {
   const { frequency, isListening, permissionError, clearFrequency } =
     useMicrophone();
 
-  console.log(frequency);
-
   // clear frequency whenever new string is selected
   useEffect(() => {
     clearFrequency();

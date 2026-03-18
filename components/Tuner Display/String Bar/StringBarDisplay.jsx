@@ -43,6 +43,7 @@ const StringBarDisplay = () => {
               note={note}
               isSelected={selectedStringNum === num}
               onClick={() => handleStringSelect(num, note)}
+              frequency={tuning.frequencies[num]}
             />
           ))}
       </div>
