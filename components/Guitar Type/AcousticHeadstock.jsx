@@ -3,7 +3,7 @@
 import Image from "next/image";
 import AcousticHeadstockSVG from "@/public/AcousticHeadstock.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedString } from "@/store/stringSlice";
+import { setSelectedString, clearSelectedString } from "@/store/stringSlice";
 import { TUNINGS } from "@/constants/tunings";
 
 const TunerKnob = ({ label, isSelected, onClick }) => {
@@ -41,7 +41,11 @@ const AcousticHeadstock = () => {
 
   const handleSelect = (stringNum) => {
     const note = tuning.strings[stringNum];
-    dispatch(setSelectedString({ stringNum, note }));
+    if (selectedStringNum === stringNum) {
+      dispatch(clearSelectedString());
+    } else {
+      dispatch(setSelectedString({ stringNum, note }));
+    }
   };
 
   const leftStrings = STRINGS.slice(0, 3);
