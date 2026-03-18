@@ -13,6 +13,8 @@ export const useMicrophone = () => {
   const streamRef = useRef(null);
   const detectorRef = useRef(null);
   const inputRef = useRef(null);
+  const lastFrequencyRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const detectPitch = () => {
     const analyser = analyserRef.current;
@@ -30,6 +32,11 @@ export const useMicrophone = () => {
       if (detectedClarity > 0.9 && detectedPitch > 50) {
         setFrequency(Math.round(detectedPitch * 10) / 10);
         setClarity(Math.round(detectedClarity * 100));
+
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+          setFrequency(null);
+        }, 8000);
       }
 
       animationFrameRef.current = requestAnimationFrame(loop);
@@ -44,6 +51,7 @@ export const useMicrophone = () => {
     if (audioContextRef.current) audioContextRef.current.close();
     if (streamRef.current)
       streamRef.current.getTracks().forEach((t) => t.stop());
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setIsListening(false);
     setFrequency(null);
   };
@@ -76,10 +84,22 @@ export const useMicrophone = () => {
     }
   };
 
+  const clearFrequency = () => {
+    setFrequency(null);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  };
+
   useEffect(() => {
     startListening();
     return () => stopListening();
   }, []);
 
-  return { frequency, clarity, isListening, permissionError, startListening };
+  return {
+    frequency,
+    clarity,
+    isListening,
+    permissionError,
+    startListening,
+    clearFrequency,
+  };
 };

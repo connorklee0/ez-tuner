@@ -8,8 +8,6 @@ const TunerBar = ({ frequency, targetFrequency, permissionError = true }) => {
   const clampedDiff = Math.max(-30, Math.min(30, diff));
   const needlePercent = ((clampedDiff + 30) / 60) * 100;
 
-  console.log(frequency);
-
   return (
     <div className="flex flex-col items-center justify-center p-6 w-full">
       <div className="relative w-full max-w-xl">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { TUNINGS } from "@/constants/tunings";
 import StringBarDisplay from "./String Bar/StringBarDisplay";
@@ -18,9 +19,15 @@ const TunerDisplayWrapper = () => {
     ? tuning.frequencies[Number(selectedStringNum)]
     : null;
 
-  const { frequency, isListening, permissionError } = useMicrophone();
+  const { frequency, isListening, permissionError, clearFrequency } =
+    useMicrophone();
 
-  console.log(frequency)
+  console.log(frequency);
+
+  // clear frequency whenever new string is selected
+  useEffect(() => {
+    clearFrequency();
+  }, [selectedStringNum]);
 
   return (
     <div className="flex flex-col items-center justify-between py-4 border w-180 h-120 rounded-xl bg-white/15">
