@@ -20,8 +20,6 @@ const TunerDisplayWrapper = () => {
 
   const { frequency, isListening, permissionError } = useMicrophone();
 
-  console.log(frequency);
-
   return (
     <div className="flex flex-col items-center justify-between py-4 border w-180 h-120 rounded-xl bg-white/15">
       <StringBarDisplay />
