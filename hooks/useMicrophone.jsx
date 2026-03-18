@@ -9,6 +9,9 @@ export const useMicrophone = () => {
   const [permissionError, setPermissionError] = useState(false);
 
   const isMuted = useSelector((state) => state.string.isMuted);
+  const selectedStringNum = useSelector(
+    (state) => state.string.selectedStringNum,
+  );
 
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
@@ -18,11 +21,21 @@ export const useMicrophone = () => {
   const inputRef = useRef(null);
   const timeoutRef = useRef(null);
   const isMutedRef = useRef(isMuted);
+  const selectedStringNumRef = useRef(selectedStringNum);
 
-  // Keep isMutedRef in sync with Redux state
+  // Keep refs in sync with Redux state
   useEffect(() => {
     isMutedRef.current = isMuted;
   }, [isMuted]);
+
+  useEffect(() => {
+    selectedStringNumRef.current = selectedStringNum;
+    // clear frequency when string is deselected
+    if (!selectedStringNum) {
+      setFrequency(null);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    }
+  }, [selectedStringNum]);
 
   const clearFrequency = () => {
     setFrequency(null);
@@ -38,7 +51,7 @@ export const useMicrophone = () => {
     const loop = () => {
       analyser.getFloatTimeDomainData(input);
 
-      if (!isMutedRef.current) {
+      if (!isMutedRef.current && selectedStringNumRef.current) {
         const [detectedPitch, detectedClarity] = detector.findPitch(
           input,
           sampleRate,

@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const stringSlice = createSlice({
   name: "string",
   initialState: {
-    selectedStringNum: 6,
-    selectedNote: "E",
+    selectedStringNum: null,
+    selectedNote: null,
     isMuted: false,
   },
   reducers: {

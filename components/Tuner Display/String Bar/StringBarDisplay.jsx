@@ -60,7 +60,7 @@ const StringBarDisplay = () => {
   }, [selectedStringNum, tuning]);
 
   return (
-    <div className="flex flex-col items-center py-2 px-6 gap-5 w-full h-full">
+    <div className="flex flex-col items-center py-2 px-6 gap-3 w-full h-full">
       <div className="text-xl flex flex-col items-center">
         <span>
           Tuning: <span className="font-bold">{tuning.label}</span>
