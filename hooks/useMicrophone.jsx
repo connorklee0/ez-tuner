@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { PitchDetector } from "pitchy";
+import { useSelector } from "react-redux";
 
 export const useMicrophone = () => {
   const [frequency, setFrequency] = useState(null);
@@ -7,14 +8,26 @@ export const useMicrophone = () => {
   const [isListening, setIsListening] = useState(false);
   const [permissionError, setPermissionError] = useState(false);
 
+  const isMuted = useSelector((state) => state.string.isMuted);
+
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
   const animationFrameRef = useRef(null);
   const streamRef = useRef(null);
   const detectorRef = useRef(null);
   const inputRef = useRef(null);
-  const lastFrequencyRef = useRef(null);
   const timeoutRef = useRef(null);
+  const isMutedRef = useRef(isMuted);
+
+  // Keep isMutedRef in sync with Redux state
+  useEffect(() => {
+    isMutedRef.current = isMuted;
+  }, [isMuted]);
+
+  const clearFrequency = () => {
+    setFrequency(null);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  };
 
   const detectPitch = () => {
     const analyser = analyserRef.current;
@@ -24,19 +37,22 @@ export const useMicrophone = () => {
 
     const loop = () => {
       analyser.getFloatTimeDomainData(input);
-      const [detectedPitch, detectedClarity] = detector.findPitch(
-        input,
-        sampleRate,
-      );
 
-      if (detectedClarity > 0.9 && detectedPitch > 50) {
-        setFrequency(Math.round(detectedPitch * 10) / 10);
-        setClarity(Math.round(detectedClarity * 100));
+      if (!isMutedRef.current) {
+        const [detectedPitch, detectedClarity] = detector.findPitch(
+          input,
+          sampleRate,
+        );
 
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-          setFrequency(null);
-        }, 8000);
+        if (detectedClarity > 0.9 && detectedPitch > 50) {
+          setFrequency(Math.round(detectedPitch * 10) / 10);
+          setClarity(Math.round(detectedClarity * 100));
+
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          timeoutRef.current = setTimeout(() => {
+            setFrequency(null);
+          }, 7000);
+        }
       }
 
       animationFrameRef.current = requestAnimationFrame(loop);
@@ -82,11 +98,6 @@ export const useMicrophone = () => {
       setPermissionError(true);
       setIsListening(false);
     }
-  };
-
-  const clearFrequency = () => {
-    setFrequency(null);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };
 
   useEffect(() => {

@@ -5,6 +5,7 @@ const stringSlice = createSlice({
   initialState: {
     selectedStringNum: 6,
     selectedNote: "E",
+    isMuted: false,
   },
   reducers: {
     setSelectedString: (state, action) => {
@@ -15,8 +16,12 @@ const stringSlice = createSlice({
       state.selectedStringNum = null;
       state.selectedNote = null;
     },
+    setMuted: (state, action) => {
+      state.isMuted = action.payload;
+    },
   },
 });
 
-export const { setSelectedString, clearSelectedString } = stringSlice.actions;
+export const { setSelectedString, clearSelectedString, setMuted } =
+  stringSlice.actions;
 export default stringSlice.reducer;

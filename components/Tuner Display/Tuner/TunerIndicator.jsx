@@ -1,5 +1,7 @@
 import { Check } from "@mui/icons-material";
 import { useState, useEffect, useRef } from "react";
+import { setMuted } from "@/store/stringSlice";
+import { useDispatch } from "react-redux";
 
 const playChime = () => {
   const audio = new Audio("/sounds/success.mp3");
@@ -13,6 +15,7 @@ const TunerIndicator = ({ diff = 0, isInTune = false }) => {
   const celebrateTimeoutRef = useRef(null);
   const textTimeoutRef = useRef(null);
   const hasPlayedRef = useRef(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isInTune && !hasPlayedRef.current) {
@@ -23,6 +26,10 @@ const TunerIndicator = ({ diff = 0, isInTune = false }) => {
         setCelebrating(false);
         setShowInTuneText(true);
         playChime();
+        dispatch(setMuted(true));
+        setTimeout(() => {
+          dispatch(setMuted(false));
+        }, 1500);
       }, 3000);
     }
 
@@ -93,7 +100,7 @@ const TunerIndicator = ({ diff = 0, isInTune = false }) => {
           {isInTune ? (
             <Check
               className={`transition-all duration-300 ${celebrating ? "text-green-300" : "text-green-400"}`}
-              sx={{ fontSize: 26}}
+              sx={{ fontSize: 26 }}
             />
           ) : (
             <span className="text-sm font-bold">
