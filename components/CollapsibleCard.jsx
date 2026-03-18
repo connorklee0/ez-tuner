@@ -26,14 +26,14 @@ const CollapsibleCard = ({ title, subtitle, children, isOpen, onToggle }) => {
       <div className="shrink-0 py-2">
         <button
           onClick={onToggle}
-          className="flex items-center justify-center w-5 h-6 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 cursor-pointer transition-all duration-300 ease-in-out active:scale-90 hover:scale-110"
+          className="flex items-center justify-center w-5 h-5 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 cursor-pointer transition-all duration-300 ease-in-out active:scale-90 hover:scale-110"
         >
           <div
             className={`transition-transform duration-300 ease-in-out ${
               isOpen ? "rotate-0" : "rotate-180"
             }`}
           >
-            <ExpandLess sx={{ fontSize: 20 }} />
+            <ExpandLess sx={{ fontSize: 30 }} />
           </div>
         </button>
       </div>
