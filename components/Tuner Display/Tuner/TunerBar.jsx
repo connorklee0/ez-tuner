@@ -8,18 +8,20 @@ const TunerBar = ({ frequency, targetFrequency, permissionError = true }) => {
   const clampedDiff = Math.max(-30, Math.min(30, diff));
   const needlePercent = ((clampedDiff + 30) / 60) * 100;
 
+  console.log(frequency);
+
   return (
     <div className="flex flex-col items-center justify-center p-6 w-full">
       <div className="relative w-full max-w-xl">
         {/* TunerIndicator — floats above needle */}
-        <div
-          className="absolute -top-14 transition-all duration-150"
-          style={{ left: `calc(${needlePercent}% - 39px)` }}
-        >
-          {!permissionError && (
+        {!permissionError && frequency && (
+          <div
+            className="absolute -top-14 transition-all duration-150"
+            style={{ left: `calc(${needlePercent}% - 39px)` }}
+          >
             <TunerIndicator diff={diff} isInTune={isInTune} />
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Gradient track */}
         <div
@@ -46,7 +48,7 @@ const TunerBar = ({ frequency, targetFrequency, permissionError = true }) => {
             }}
           />
 
-          {!permissionError && (
+          {!permissionError && frequency && (
             <div
               className="absolute top-1/2 -translate-y-1/2 w-1.5 h-9 rounded-full bg-white z-10 transition-all duration-150"
               style={{
