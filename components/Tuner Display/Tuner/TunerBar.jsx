@@ -1,9 +1,12 @@
 import TunerIndicator from "./TunerIndicator";
 
-const TunerBar = ({ cents = 0, permissionError = true }) => {
-  const clampedCents = Math.max(-50, Math.min(50, cents));
-  const needlePercent = ((clampedCents + 50) / 100) * 100;
-  const isInTune = Math.abs(clampedCents) <= 3;
+const TunerBar = ({ frequency, targetFrequency, permissionError = true }) => {
+  const diff = frequency && targetFrequency ? frequency - targetFrequency : 0;
+  const isInTune = Math.abs(diff) <= 0.75;
+
+  // Map diff to needle: clamp to +-30hz range then convert to 0-100%
+  const clampedDiff = Math.max(-30, Math.min(30, diff));
+  const needlePercent = ((clampedDiff + 30) / 60) * 100;
 
   return (
     <div className="flex flex-col items-center justify-center p-6 w-full">
@@ -13,7 +16,9 @@ const TunerBar = ({ cents = 0, permissionError = true }) => {
           className="absolute -top-14 transition-all duration-150"
           style={{ left: `calc(${needlePercent}% - 39px)` }}
         >
-          {!permissionError && <TunerIndicator cents={clampedCents} />}
+          {!permissionError && (
+            <TunerIndicator diff={diff} isInTune={isInTune} />
+          )}
         </div>
 
         {/* Gradient track */}
@@ -58,9 +63,7 @@ const TunerBar = ({ cents = 0, permissionError = true }) => {
         <div className="flex justify-between items-center mt-2.5 px-1">
           <span className="text-blue-300 text-sm italic">Flat ♭</span>
           <span
-            className={`text-sm font-semibold uppercase tracking-widest transition-colors duration-300 ${
-              isInTune ? "text-green-400" : "text-slate-400"
-            }`}
+            className={`text-sm font-semibold uppercase tracking-widest transition-colors duration-300 ${isInTune ? "text-green-400" : "text-slate-400"}`}
           >
             In tune
           </span>

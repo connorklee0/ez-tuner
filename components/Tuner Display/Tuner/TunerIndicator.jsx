@@ -1,15 +1,12 @@
 import { Check } from "@mui/icons-material";
 
-const TunerIndicator = ({ cents = 0 }) => {
-  const isInTune = Math.abs(cents) <= 3;
-  const isTuneUp = cents < -3;
-//   const isTuneDown = cents > 3;
+const TunerIndicator = ({ diff = 0, isInTune = false }) => {
+  const isTuneUp = diff < 0;
 
   return (
     <div className="flex flex-col items-center gap-1">
-      {/* Tune up / tune down label */}
       <span
-        className={`text-[4px] font-semibold uppercase tracking-widest transition-colors duration-300 ${
+        className={`text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${
           isInTune
             ? "text-green-400"
             : isTuneUp
@@ -20,9 +17,7 @@ const TunerIndicator = ({ cents = 0 }) => {
         {isInTune ? "" : isTuneUp ? "Tune up" : "Tune down"}
       </span>
 
-      {/* Arrow tag */}
       <div className="flex flex-col items-center">
-        {/* Tag body */}
         <div
           className={`flex items-center justify-center w-16 h-10 rounded-md transition-colors duration-300 ${
             isInTune
@@ -34,13 +29,13 @@ const TunerIndicator = ({ cents = 0 }) => {
             <Check className="text-green-400" sx={{ fontSize: 22 }} />
           ) : (
             <span className="text-sm font-bold">
-              {Math.abs(cents).toFixed(1)}
-              <span className="text-xs font-normal ml-0.5">¢</span>
+              {diff > 0 ? "-" : "+"}
+              {Math.abs(diff).toFixed(1)}
+              <span className="text-xs font-normal ml-0.5">Hz</span>
             </span>
           )}
         </div>
 
-        {/* Downward arrow tip */}
         <div
           className="w-0 h-0 transition-colors duration-300"
           style={{
