@@ -11,7 +11,7 @@ const StringCard = ({ stringNum, note, isSelected, onClick }) => {
       }`}
     >
       <span className="text-xs text-gray-300">String {stringNum}</span>
-      <span className="text-xl font-bold">{note}</span>
+      <span className="text-xl font-bold">{note[0]}</span>
       <VolumeUp
         sx={{ fontSize: 28 }}
         className="hover:scale-120 hover:text-white/60 active:scale-90 active:text-white/30"

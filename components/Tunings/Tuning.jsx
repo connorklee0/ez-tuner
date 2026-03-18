@@ -14,7 +14,7 @@ const Tuning = ({ label, strings, isSelected, onClick }) => {
           .sort(([a], [b]) => b - a)
           .map(([num, note]) => (
             <div key={num} className="flex flex-col items-center">
-              <span>{note}</span>
+              <span>{note[0]}</span>
             </div>
           ))}
       </div>

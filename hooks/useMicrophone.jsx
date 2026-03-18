@@ -47,17 +47,16 @@ const autoCorrelate = (buffer, sampleRate) => {
   return sampleRate / T0;
 };
 
-const frequencyToCents = (frequency) => {
-  const A4 = 440;
-  const semitones = 12 * Math.log2(frequency / A4);
-  const nearest = Math.round(semitones);
-  return Math.max(-50, Math.min(50, (semitones - nearest) * 100));
-};
-
-export const useMicrophone = () => {
+export const useMicrophone = (targetFrequency = 440) => {
   const [cents, setCents] = useState(0);
   const [isListening, setIsListening] = useState(false);
   const [permissionError, setPermissionError] = useState(false);
+
+  const frequencyToCents = (frequency) => {
+    if (!targetFrequency) return 0;
+    const cents = 1200 * Math.log2(frequency / targetFrequency);
+    return Math.max(-50, Math.min(50, cents));
+  };
 
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
